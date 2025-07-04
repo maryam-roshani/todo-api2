@@ -7,8 +7,8 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ title, description }) => {
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-6 w-full max-w-sm">
-      <h2 className="text-xl font-semibold mb-2">{title}:</h2>
+    <div className="bg-white shadow-lg rounded-lg p-4 max-w-sm text-sm">
+      <p className="font-semibold mb-2 text-nowrap">{title}:</p>
       <p className="text-gray-600">{description}</p>
     </div>
   );

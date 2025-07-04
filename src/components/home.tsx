@@ -10,18 +10,28 @@ const Home: React.FC = () => {
   ];
 
   return (
-    <div>
-        <h1>برنامه ردیاب زمان</h1>
+    <>
+    <div className='block text-center justify-center my-5 leading-7
+    '>
+        <div className='flex justify-center items-center gap-2'>
+            <h1 className='my-3'>برنامه </h1><h1 className='text-gray-700'>ردیاب زمان</h1>
+        </div>
         <p>ما یک ابزار کارآمد برای رهگیری زمان و مدیزیت وظایف فراهم کرده ایم که به شما کمک میکند تا</p>
         <p>بهره وری خود را افزایش دهید و امور خود را به بهترین نحو مدیریت کنید</p>
-        <button className='bg-purple-700 text-white rounded-sm m-5'>کنترل زمان را به دست بگیرید</button>
-        <h3 className="mt-10 mb-5">ویژگی های کلیدی</h3>
-        <div className="bg-gray-100 flex flex-wrap justify-center gap-6 p-8">
+    </div>
+        
+        <div className='flex justify-center'>
+            <button className='bg-indigo-800 px-2 py-1 text-white rounded-sm m-5 cursor-pointer hover:bg-red-500 transition-colors duration-300'>کنترل زمان را به دست بگیرید</button>
+        </div>
+        <div className="flex justify-center">
+            <h1 className="mt-10 font-bold mb-5">ویژگی های کلیدی</h1>
+        </div>
+        <div className="flex flex-nowrap mx-auto justify-center gap-6 p-8 w-2/3">
         {cards.map((card, index) => (
             <Card key={index} title={card.title} description={card.description} />
         ))}
     </div>
-    </div>
+    </>
   )
 }
 
