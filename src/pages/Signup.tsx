@@ -7,7 +7,7 @@ import { signup } from '../services/AuthService';
 import { validatePassword } from '../utils/passwordValidation';
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -24,8 +24,8 @@ const Signup = () => {
     }
 
     try {
-      const user = await signup(email, password);
-      dispatch(loginSuccess({ id: user.id, email: user.email }));
+      const user = await signup(username, password);
+      dispatch(loginSuccess({ id: user.id, username: user.username }));
       navigate('/dashboard');
     } catch (err) {
       setError('Signup failed. Email might already be used.');
@@ -37,10 +37,10 @@ const Signup = () => {
       <h2 className="text-xl mb-4">Signup</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           required
           className="border px-3 py-2 w-full mb-2"
         />
