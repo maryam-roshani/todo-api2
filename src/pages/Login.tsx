@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../store';
 import { loginSuccess } from '../store/authSlice';
@@ -12,6 +12,9 @@ const Login = () => {
 
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = (location.state as any)?.from?.pathname || '/dashboard';
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,7 +22,7 @@ const Login = () => {
     try {
       const user = await login(username, password);
       dispatch(loginSuccess({ id: user.id, username: user.username }));
-      navigate('/dashboard');
+      navigate(from);
     } catch (err: any) {
       setError(err.message || 'Login failed');
     }
