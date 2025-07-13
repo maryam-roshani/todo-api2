@@ -1,10 +1,9 @@
 import React from 'react'
-import LoginSignup from '../components/loginSignup'
 
 const Login = () => {
   return (
     <>
-      <LoginSignup/>
+      <h1 className="text-2xl">Login Page</h1>
     </>
   )
 }
