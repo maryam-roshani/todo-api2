@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import NavBar from './components/NavBar';
+import CalendarPage from './pages/CalendarPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -41,7 +42,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+          <Route
+            path="/calendar"
+            element={
+              <ProtectedRoute>
+                <CalendarPage />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
