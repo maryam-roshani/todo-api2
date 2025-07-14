@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Task } from '../types/Task';
+import * as taskService from '../services/TaskService';
 
 interface TasksState {
   items: Task[];
@@ -29,6 +30,14 @@ export const addTask = createAsyncThunk<Task, Task>(
   'tasks/addTask',
   async (task) => {
     const response = await axios.post<Task>(API_URL, task);
+    return response.data;
+  }
+);
+
+export const editTask = createAsyncThunk<Task, Task>(
+  'tasks/editTask',
+  async (task) => {
+    const response = await axios.put<Task>(API_URL, task);
     return response.data;
   }
 );
