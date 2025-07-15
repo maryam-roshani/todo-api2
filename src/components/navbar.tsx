@@ -1,38 +1,39 @@
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store';
-import { logout } from '../store/authSlice';
 import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../store';
+import { logout } from '../store/authSlice';
+import { useState } from 'react';
 
-
-const NavBar: React.FC = () => {        
+const NavBar = () => {
   const auth = useSelector((state: RootState) => state.auth);
-  const dispatch: AppDispatch = useDispatch();
-
+  const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between">
-      <div>
-        <Link to="/" className="mr-4 font-bold">My ToDo App</Link>
-        {auth.isAuthenticated && (
+    <nav className="bg-primary text-white px-4 py-3 flex justify-between items-center">
+      <Link to="/" className="text-lg font-bold">📝 MyToDoApp</Link>
+
+      <button className="md:hidden" onClick={() => setOpen(!open)}>
+        ☰
+      </button>
+
+      <div className={`${open ? 'block' : 'hidden'} md:flex md:items-center md:space-x-4`}>
+        {!auth.isAuthenticated ? (
           <>
-            <Link to="/dashboard" className="mr-4">Dashboard</Link>
-            <Link to="/tasks" className="mr-4">Tasks</Link>
-            <Link to="/calendar" className="mr-2">Calendar</Link>
+            <Link to="/login" className="block mt-2 md:mt-0 hover:underline">Login</Link>
+            <Link to="/signup" className="block mt-2 md:mt-0 hover:underline">Signup</Link>
           </>
-        )}
-      </div>
-      <div>
-        {auth.isAuthenticated ? (
-            <>
-                <span className="mr-4">Hello, {auth.user?.username}</span>
-                <button onClick={() => dispatch(logout())} className="bg-red-500 text-white px-2 py-1 rounded">
-                Logout
-                </button>
-            </>        
         ) : (
           <>
-            <Link to="/login" className="mr-4">Login</Link>
-            <Link to="/signup">Signup</Link>
+            <Link to="/dashboard" className="block mt-2 md:mt-0 hover:underline">Dashboard</Link>
+            <Link to="/tasks" className="block mt-2 md:mt-0 hover:underline">Tasks</Link>
+            <Link to="/calendar" className="block mt-2 md:mt-0 hover:underline">Calendar</Link>
+            <button
+              onClick={() => dispatch(logout())}
+              className="block mt-2 md:mt-0 bg-red-500 px-2 py-1 rounded hover:bg-red-600"
+            >
+              Logout
+            </button>
           </>
         )}
       </div>

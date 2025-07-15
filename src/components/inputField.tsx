@@ -45,7 +45,8 @@ const InputField: React.FC<InputFieldProps> = ({
             placeholder={placeholder}
             onChange={onChange}
             required={required}
-            className="border rounded px-3 py-2 w-full focus:outline-none focus:ring focus:border-blue-300"
+            className="border rounded px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-primary 
+    transition"
           />
       )}
     </div>

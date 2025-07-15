@@ -40,7 +40,7 @@ const TasksPage = () => {
         userId={auth.user!.id}
       />
 
-      <ul className="mt-6 space-y-2">
+      {/* <ul className="mt-6 space-y-2">
         {items.map(task => (
           <li key={task.id} className="border rounded p-3 shadow">
             <h3 className="font-semibold">{task.title}</h3>
@@ -64,7 +64,57 @@ const TasksPage = () => {
             </div>
           </li>
         ))}
+      </ul> */}
+      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {tasks.map(task => (
+            <li key={task.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
+            <h4 className="font-bold text-lg">{task.title}</h4>
+            <p className="text-sm text-gray-600">{task.date} - {task.time}</p>
+            <p className="italic text-sm text-gray-700">
+                Priority: 
+                <span className={
+                task.priority === 'high' ? 'text-red-500' : 
+                task.priority === 'medium' ? 'text-yellow-500' : 
+                'text-green-500'
+                }>
+                {task.priority}
+                </span>
+            </p>
+            {task.description && <p className="mt-2 text-gray-800">{task.description}</p>}
+            <div className="mt-3 flex space-x-2">
+                <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500">Edit</button>
+                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600">Delete</button>
+            </div>
+            </li>
+        ))}
       </ul>
+      <table className="w-full border-collapse mt-4">
+        <thead>
+            <tr className="bg-primary text-white">
+            <th className="py-2 px-4">Title</th>
+            <th className="py-2 px-4">Date</th>
+            <th className="py-2 px-4">Time</th>
+            <th className="py-2 px-4">Priority</th>
+            <th className="py-2 px-4">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {tasks.map(task => (
+            <tr key={task.id} className="border-b hover:bg-gray-50">
+                <td className="py-2 px-4">{task.title}</td>
+                <td className="py-2 px-4">{task.date}</td>
+                <td className="py-2 px-4">{task.time}</td>
+                <td className="py-2 px-4 capitalize">{task.priority}</td>
+                <td className="py-2 px-4">
+                <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2">Edit</button>
+                <button className="bg-red-500 px-2 py-1 rounded text-white">Delete</button>
+                </td>
+            </tr>
+            ))}
+        </tbody>
+      </table>
+
+
     </div>
   );
 };

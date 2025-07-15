@@ -53,6 +53,13 @@ function App() {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </div>
+      <button
+        onClick={() => document.documentElement.classList.toggle('dark')}
+        className="px-3 py-1 rounded bg-gray-800 text-white hover:bg-gray-700"
+      >
+        Toggle Dark Mode
+      </button>
+
     </div>
   );
 }
