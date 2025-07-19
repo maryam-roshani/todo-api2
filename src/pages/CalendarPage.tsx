@@ -2,11 +2,28 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { Task } from '../types/Task';
+import type { RootState } from '../store';
+import type { Task } from '../types/Task';
+
+
+type ValuePiece = Date | null;
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
 
 const CalendarPage: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+  const handleDateChange = (value: Value) => {
+    if (value instanceof Date) {
+        setSelectedDate(value);
+    } else if (Array.isArray(value) && value[0] instanceof Date) {
+        setSelectedDate(value[0]);
+    } else {
+        setSelectedDate(null);
+    }
+  };
+
+
 
   const tasks = useSelector((state: RootState) => state.tasks.items);
 
@@ -15,7 +32,7 @@ const CalendarPage: React.FC = () => {
     return date.toISOString().split('T')[0];
   };
 
-  const selectedDateStr = formatDate(selectedDate);
+const selectedDateStr = selectedDate ? formatDate(selectedDate) : '';
 
   // Filter tasks for selected date
   const tasksForDate: Task[] = tasks.filter(
@@ -29,7 +46,7 @@ const CalendarPage: React.FC = () => {
       <div className="flex flex-col md:flex-row md:space-x-8">
         <div className="mb-6 md:mb-0">
           <Calendar
-            onChange={setSelectedDate}
+            onChange={handleDateChange}
             value={selectedDate}
             className="rounded border shadow"
           />
