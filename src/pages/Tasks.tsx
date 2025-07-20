@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { RootState, AppDispatch } from '../store';
+import type { RootState, AppDispatch } from '../store';
 import { useEffect, useState } from 'react';
-import { fetchTasks, addTask, editTask, removeTask } from '../store/tasksSlice';
-import TaskForm from '../components/TaskForm';
-import { Task } from '../types/Task';
+import { fetchTasks, addTask, editTask, deleteTask } from '../store/tasksSlice';
+import TaskForm from '../components/taskForm';
+import type { Task } from '../types/Task';
 
 const TasksPage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -25,7 +25,7 @@ const TasksPage = () => {
   };
 
   const handleDelete = (id: string) => {
-    dispatch(removeTask(id));
+    dispatch(deleteTask(id));
   };
 
   if (loading) return <p>Loading...</p>;
@@ -66,7 +66,7 @@ const TasksPage = () => {
         ))}
       </ul> */}
       <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {tasks.map(task => (
+        {items.map(task => (
             <li key={task.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
             <h4 className="font-bold text-lg">{task.title}</h4>
             <p className="text-sm text-gray-600">{task.date} - {task.time}</p>
@@ -83,7 +83,7 @@ const TasksPage = () => {
             {task.description && <p className="mt-2 text-gray-800">{task.description}</p>}
             <div className="mt-3 flex space-x-2">
                 <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500">Edit</button>
-                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600">Delete</button>
+                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)} >Delete</button>
             </div>
             </li>
         ))}
@@ -99,7 +99,7 @@ const TasksPage = () => {
             </tr>
         </thead>
         <tbody>
-            {tasks.map(task => (
+            {items.map(task => (
             <tr key={task.id} className="border-b hover:bg-gray-50">
                 <td className="py-2 px-4">{task.title}</td>
                 <td className="py-2 px-4">{task.date}</td>
@@ -107,7 +107,7 @@ const TasksPage = () => {
                 <td className="py-2 px-4 capitalize">{task.priority}</td>
                 <td className="py-2 px-4">
                 <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2">Edit</button>
-                <button className="bg-red-500 px-2 py-1 rounded text-white">Delete</button>
+                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)} >Delete</button>
                 </td>
             </tr>
             ))}

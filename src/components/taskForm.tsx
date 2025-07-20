@@ -1,0 +1,73 @@
+import { useState } from 'react';
+import type { Task } from '../types/Task';
+
+interface Props {
+  initial?: Task;
+  onSubmit: (task: Task) => void;
+  userId: string;
+}
+
+const TaskForm = ({ initial, onSubmit, userId }: Props) => {
+  const [title, setTitle] = useState(initial?.title || '');
+  const [description, setDescription] = useState(initial?.description || '');
+  const [date, setDate] = useState(initial?.date || '');
+  const [time, setTime] = useState(initial?.time || '');
+  const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(initial?.priority || 'low');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit({
+      id: initial?.id || crypto.randomUUID(),
+      title,
+      description,
+      date,
+      time,
+      priority,
+      status: initial?.status || 'pending',
+      userId,
+    });
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-2">
+      <input
+        value={title}
+        onChange={(e) => setTitle(e.target.value)}
+        placeholder="Title"
+        className="border p-2 w-full"
+      />
+      <textarea
+        value={description}
+        onChange={(e) => setDescription(e.target.value)}
+        placeholder="Description"
+        className="border p-2 w-full"
+      />
+      <input
+        type="date"
+        value={date}
+        onChange={(e) => setDate(e.target.value)}
+        className="border p-2 w-full"
+      />
+      <input
+        type="time"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+        className="border p-2 w-full"
+      />
+      <select
+        value={priority}
+        onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}
+        className="border p-2 w-full"
+      >
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        {initial ? 'Update Task' : 'Add Task'}
+      </button>
+    </form>
+  );
+};
+
+export default TaskForm;

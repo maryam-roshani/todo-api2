@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Task } from '../types/Task';
+import type { Task } from '../types/Task';
 
 const BASE_URL = 'http://localhost:3001/tasks';
 

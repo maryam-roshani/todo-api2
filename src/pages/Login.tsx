@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { AppDispatch } from '../store';
+import type { AppDispatch } from '../store';
 import { loginSuccess } from '../store/authSlice';
 import { login } from '../services/AuthService';
 
