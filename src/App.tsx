@@ -1,43 +1,39 @@
-import { useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Dashboard from './pages/Dashboard';
+// import Dashboard from './pages/Dashboard';
 import Tasks from './pages/Tasks';
 import NavBar from './components/NavBar';
 import CalendarPage from './pages/CalendarPage';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  // for now: dummy auth state
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  const handleLogin = () => setIsAuthenticated(true);
-  const handleLogout = () => setIsAuthenticated(false);
+  
 
   return (
     <div>
-      <NavBar isAuthenticated={isAuthenticated} onLogout={handleLogout} />
+      <NavBar  />
       <div className="p-4">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login />}
+          />
           <Route path="/signup" element={<Signup />} />
 
-          <Route
+          {/* <Route
             path="/dashboard"
             element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute >
                 <Dashboard />
               </ProtectedRoute>
             }
-          />
+          /> */}
 
           <Route
             path="/tasks"
             element={
-              <ProtectedRoute isAuthenticated={isAuthenticated}>
+              <ProtectedRoute >
                 <Tasks />
               </ProtectedRoute>
             }

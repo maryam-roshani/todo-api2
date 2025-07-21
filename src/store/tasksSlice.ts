@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import type { PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { Task } from '../types/Task';
-import * as taskService from '../services/TaskService';
+import type { Task } from '../types/Task';
 
 interface TasksState {
   items: Task[];

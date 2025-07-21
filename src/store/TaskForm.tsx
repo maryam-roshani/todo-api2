@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Task } from '../types/Task';
+import React, { useState } from 'react';
+import type { Task } from '../types/Task';
 
 interface Props {
   initial?: Task;
@@ -26,6 +26,7 @@ const TaskForm: React.FC<Props> = ({ initial, onSubmit, userId }) => {
       date,
       time,
       priority: priority as 'low' | 'medium' | 'high',
+      status: initial?.status || 'pending',
     };
 
     onSubmit(task);
@@ -64,7 +65,7 @@ const TaskForm: React.FC<Props> = ({ initial, onSubmit, userId }) => {
       <select
         className="border px-3 py-2 w-full"
         value={priority}
-        onChange={e => setPriority(e.target.value)}
+        onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}
       >
         <option value="low">Low</option>
         <option value="medium">Medium</option>
