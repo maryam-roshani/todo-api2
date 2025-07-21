@@ -10,7 +10,7 @@ const NavBar = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="bg-primary text-white px-4 py-3 flex justify-between items-center">
+    <nav className="bg-primary text-black px-4 py-3 flex justify-between items-center">
       <Link to="/" className="text-lg font-bold">📝 MyToDoApp</Link>
 
       <button className="md:hidden" onClick={() => setOpen(!open)}>

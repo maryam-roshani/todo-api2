@@ -9,6 +9,7 @@ import { validatePassword } from '../utils/passwordValidation';
 const Signup = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const dispatch: AppDispatch = useDispatch();
@@ -44,14 +45,24 @@ const Signup = () => {
           required
           className="border px-3 py-2 w-full mb-2"
         />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          className="border px-3 py-2 w-full mb-2"
-        />
+        <div className="relative">
+          <input
+            type={showPassword ? 'text' : 'password'}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            className="border px-3 py-2 w-full mb-2 pr-10"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-600"
+        >
+            {showPassword ? '🙈' : '👁️'}
+          </button>
+</div>
+
         {error && <p className="text-red-500 mb-2">{error}</p>}
         <button type="submit" className="bg-blue-500 text-white px-4 py-2 w-full">Signup</button>
       </form>
