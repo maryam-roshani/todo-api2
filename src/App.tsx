@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 // import Dashboard from './pages/Dashboard';
@@ -7,16 +6,17 @@ import Tasks from './pages/Tasks';
 import NavBar from './components/NavBar';
 import CalendarPage from './pages/CalendarPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import HomePage from './pages/Home';
 
 function App() {
   
 
   return (
     <div>
-      <NavBar  />
+      <NavBar/>
       <div className="p-4">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />}
           />
           <Route path="/signup" element={<Signup />} />

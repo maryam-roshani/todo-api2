@@ -1,8 +1,9 @@
+import Home from "../components/home"
 
-const Home = () => {
+const HomePage = () => {
   return (
-    <div>Home</div>
+    <Home/>
   )
 }
 
-export default Home
+export default HomePage
