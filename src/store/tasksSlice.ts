@@ -37,7 +37,7 @@ export const addTask = createAsyncThunk<Task, Task>(
 export const editTask = createAsyncThunk<Task, Task>(
   'tasks/editTask',
   async (task) => {
-    const response = await axios.put<Task>(API_URL, task);
+    const response = await axios.put<Task>(`${API_URL}/${task.id}`, task);
     return response.data;
   }
 );
@@ -73,7 +73,13 @@ const tasksSlice = createSlice({
       })
       .addCase(deleteTask.fulfilled, (state, action: PayloadAction<string>) => {
         state.items = state.items.filter((task) => task.id !== action.payload);
-      });
+      })
+      .addCase(editTask.fulfilled, (state, action: PayloadAction<Task>) => {
+        const index = state.items.findIndex(task => task.id === action.payload.id);
+        if (index !== -1) {
+          state.items[index] = action.payload;
+        }
+      })
   },
 });
 
