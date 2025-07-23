@@ -82,7 +82,7 @@ const TasksPage = () => {
             </p>
             {task.description && <p className="mt-2 text-gray-800">{task.description}</p>}
             <div className="mt-3 flex space-x-2">
-                <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500">Edit</button>
+                <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500" onClick={() => setEditTarget(task)} >Edit</button>
                 <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)} >Delete</button>
             </div>
             </li>
@@ -106,7 +106,7 @@ const TasksPage = () => {
                 <td className="py-2 px-4">{task.time}</td>
                 <td className="py-2 px-4 capitalize">{task.priority}</td>
                 <td className="py-2 px-4">
-                <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2">Edit</button>
+                <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2" onClick={() => setEditTarget(task)} >Edit</button>
                 <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)} >Delete</button>
                 </td>
             </tr>

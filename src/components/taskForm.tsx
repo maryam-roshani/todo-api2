@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { Task } from '../types/Task';
 
 interface Props {
@@ -13,6 +13,22 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
   const [date, setDate] = useState(initial?.date || '');
   const [time, setTime] = useState(initial?.time || '');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(initial?.priority || 'low');
+
+    useEffect(() => {
+    if (initial) {
+      setTitle(initial.title);
+      setDescription(initial.description || '');
+      setDate(initial.date);
+      setTime(initial.time);
+      setPriority(initial.priority);
+    } else {
+      setTitle('');
+      setDescription('');
+      setDate('');
+      setTime('');
+      setPriority('low');
+    }
+  }, [initial]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
