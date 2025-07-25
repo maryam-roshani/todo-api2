@@ -31,12 +31,13 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
   }, [initial]);
 
   const handleSubmit = (e: React.FormEvent) => {
+    const formattedDate = new Date(date).toISOString().split('T')[0];
     e.preventDefault();
     onSubmit({
       id: initial?.id || crypto.randomUUID(),
       title,
       description,
-      date,
+      date: formattedDate,
       time,
       priority,
       status: initial?.status || 'pending',

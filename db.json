@@ -36,9 +36,9 @@
       "id": "e0b32c75-91d3-4dab-ba10-0a4ac3710e16",
       "title": "shopping",
       "description": "grocery",
-      "date": "2025-07-25",
+      "date": "2025-07-26",
       "time": "17:51",
-      "priority": "high",
+      "priority": "low",
       "status": "pending",
       "userId": "e813"
     }
