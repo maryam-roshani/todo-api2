@@ -126,22 +126,23 @@ const TasksPage = () => {
 
       {/* Modal for TaskForm */}
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start pt-20 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-xl relative">
+        <div className="fixed inset-0 backdrop-blur-sm bg-black/30 flex justify-center items-start pt-20 z-50">
+            <div className="bg-white p-6 rounded-lg shadow-xl w-full max-w-xl relative">
             <button
-              onClick={() => setShowForm(false)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-black"
+                onClick={() => setShowForm(false)}
+                className="absolute top-2 right-2 text-gray-500 hover:text-black"
             >
-              ✕
+                ✕
             </button>
             <TaskForm
-              initial={editTarget || undefined}
-              onSubmit={editTarget ? handleEdit : handleAdd}
-              userId={auth.user!.id}
+                initial={editTarget || undefined}
+                onSubmit={editTarget ? handleEdit : handleAdd}
+                userId={auth.user!.id}
             />
-          </div>
+            </div>
         </div>
       )}
+
     </div>
   );
 };
