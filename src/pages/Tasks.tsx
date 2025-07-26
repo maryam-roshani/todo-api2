@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react';
 import { fetchTasks, addTask, editTask, deleteTask } from '../store/tasksSlice';
 import TaskForm from '../components/taskForm';
 import type { Task } from '../types/Task';
+import { BsFillTrash3Fill } from "react-icons/bs";
+import { BsPencil } from "react-icons/bs";
+
 
 const TasksPage = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -73,8 +76,8 @@ const TasksPage = () => {
               </p>
               {task.description && <p className="mt-2 text-gray-800">{task.description}</p>}
               <div className="mt-3 flex space-x-2">
-                <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500" onClick={() => { setEditTarget(task); setShowForm(true); }}>Edit</button>
-                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}>Delete</button>
+                <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500" onClick={() => { setEditTarget(task); setShowForm(true); }}><BsPencil /></button>
+                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}><BsFillTrash3Fill /></button>
               </div>
             </li>
           ))}
@@ -92,24 +95,27 @@ const TasksPage = () => {
       {activeTab === 'table' && (
         <table className="w-full border-collapse mt-4">
           <thead>
-            <tr className="bg-primary text-white">
+            <tr className="bg-primary text-black">
               <th className="py-2 px-4">Title</th>
               <th className="py-2 px-4">Date</th>
               <th className="py-2 px-4">Time</th>
               <th className="py-2 px-4">Priority</th>
-              <th className="py-2 px-4">Actions</th>
+              <th className="py-2 px-4">Edit</th>
+              <th className="py-2 px-4">Delete</th>
             </tr>
           </thead>
           <tbody>
             {items.map(task => (
               <tr key={task.id} className="border-b hover:bg-gray-50">
-                <td className="py-2 px-4">{task.title}</td>
-                <td className="py-2 px-4">{task.date}</td>
-                <td className="py-2 px-4">{task.time}</td>
-                <td className="py-2 px-4 capitalize">{task.priority}</td>
+                <td className="py-2 px-4 text-center">{task.title}</td>
+                <td className="py-2 px-4 text-center">{task.date}</td>
+                <td className="py-2 px-4 text-center">{task.time}</td>
+                <td className="py-2 px-4 text-center capitalize">{task.priority}</td>
+                <td className="py-2 px-4 text-center">
+                  <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2" onClick={() => { setEditTarget(task); setShowForm(true); }}><BsPencil /></button>
+                </td>
                 <td className="py-2 px-4">
-                  <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2" onClick={() => { setEditTarget(task); setShowForm(true); }}>Edit</button>
-                  <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}>Delete</button>
+                  <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}><BsFillTrash3Fill /></button>
                 </td>
               </tr>
             ))}
@@ -118,7 +124,7 @@ const TasksPage = () => {
               className="cursor-pointer hover:bg-blue-100 text-blue-500 font-bold text-center"
               onClick={() => { setEditTarget(null); setShowForm(true); }}
             >
-              <td colSpan={5} className="py-4 text-2xl">+</td>
+              <td colSpan={6} className="py-4 text-2xl">+</td>
             </tr>
           </tbody>
         </table>

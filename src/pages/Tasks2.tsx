@@ -90,7 +90,7 @@ const TasksPage = () => {
       </ul>
       <table className="w-full border-collapse mt-4">
         <thead>
-            <tr className="bg-primary text-white">
+            <tr className="bg-primary text-black">
             <th className="py-2 px-4">Title</th>
             <th className="py-2 px-4">Date</th>
             <th className="py-2 px-4">Time</th>
