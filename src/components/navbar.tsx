@@ -13,9 +13,10 @@ const NavBar = () => {
     <nav className="bg-primary text-black px-4 py-3 flex justify-between items-center">
       <Link to="/" className="text-lg font-bold">📝 MyToDoApp</Link>
 
-      <button className="md:hidden" onClick={() => setOpen(!open)}>
-        ☰
+      <button className="md:hidden text-2xl" onClick={() => setOpen(!open)}>
+        {open ? '✕' : '☰'}
       </button>
+
 
       <div className={`${open ? 'block' : 'hidden'} md:flex md:items-center md:space-x-4`}>
         {!auth.isAuthenticated ? (
