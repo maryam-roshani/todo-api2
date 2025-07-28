@@ -9,6 +9,20 @@ import { BsPencil } from "react-icons/bs";
 
 
 const TasksPage = () => {
+
+  const getPriorityStyles = (priority: string) => {
+    switch (priority) {
+      case 'high':
+        return 'border-red-500 bg-gradient-to-r from-red-100 to-white';
+      case 'medium':
+        return 'border-yellow-400 bg-gradient-to-r from-yellow-100 to-white';
+      case 'low':
+        return 'border-green-400 bg-gradient-to-r from-green-100 to-white';
+      default:
+        return 'border-gray-300 bg-white';
+    }
+  };
+
   function formatDateWithDay(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -72,36 +86,55 @@ const TasksPage = () => {
       {activeTab === 'card' && (
         <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {items.map(task => (
-            <li key={task.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
-              <h4 className="font-bold text-lg">{task.title}</h4>
-              <p className="text-sm text-gray-600">
-                {formatDateWithDay(task.date)} - {task.time}
-              </p>
-              <p className="italic text-sm text-gray-700">
-                Priority:{' '}
-                <span className={
-                  task.priority === 'high' ? 'text-red-500' :
-                  task.priority === 'medium' ? 'text-yellow-500' : 'text-green-500'
-                }>
-                  {task.priority}
-                </span>
-              </p>
-              {task.description && <p className="mt-2 text-gray-800">{task.description}</p>}
+            <li
+              key={task.id}
+              className={`border-2 rounded-lg p-4 shadow hover:shadow-lg transition ${getPriorityStyles(task.priority)}`}
+            >
+              <h4 className="font-bold text-xl text-center mb-2">{task.title}</h4>
+              <div className="text-left text-sm space-y-1">
+                <p className="text-gray-600">
+                  {formatDateWithDay(task.date)} - {task.time}
+                </p>
+                {task.description && <p className="text-gray-800">{task.description}</p>}
+                <p className="italic">
+                  Priority:{' '}
+                  <span className="capitalize font-semibold">
+                    {task.priority}
+                  </span>
+                </p>
+              </div>
               <div className="mt-3 flex space-x-2">
-                <button className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500" onClick={() => { setEditTarget(task); setShowForm(true); }}><BsPencil /></button>
-                <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}><BsFillTrash3Fill /></button>
+                <button
+                  className="bg-yellow-400 px-2 py-1 rounded text-white hover:bg-yellow-500"
+                  onClick={() => {
+                    setEditTarget(task);
+                    setShowForm(true);
+                  }}
+                >
+                  <BsPencil />
+                </button>
+                <button
+                  className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600"
+                  onClick={() => handleDelete(task.id)}
+                >
+                  <BsFillTrash3Fill />
+                </button>
               </div>
             </li>
           ))}
           {/* + Card */}
           <li
-            onClick={() => { setEditTarget(null); setShowForm(true); }}
+            onClick={() => {
+              setEditTarget(null);
+              setShowForm(true);
+            }}
             className="border-4 border-dashed flex items-center justify-center cursor-pointer rounded-lg h-40 text-4xl font-bold text-gray-400 hover:text-blue-600"
           >
             +
           </li>
         </ul>
       )}
+
 
       {/* Table View */}
       {activeTab === 'table' && (
@@ -118,26 +151,41 @@ const TasksPage = () => {
           </thead>
           <tbody>
             {items.map(task => (
-              <tr key={task.id} className="border-b hover:bg-gray-50">
-                <td className="py-2 px-4 text-center">{task.title}</td>
+              <tr
+                key={task.id}
+                className={`border-b hover:bg-gray-50 ${
+                  task.priority === 'high'
+                    ? 'bg-red-100'
+                    : task.priority === 'medium'
+                    ? 'bg-yellow-100'
+                    : 'bg-green-100'
+                }`}
+              >
+                <td className="py-2 px-4 text-center font-semibold">{task.title}</td>
                 <td className="py-2 px-4 text-center">{formatDateWithDay(task.date)}</td>
                 <td className="py-2 px-4 text-center">{task.time}</td>
                 <td className="py-2 px-4 text-center capitalize">{task.priority}</td>
                 <td className="py-2 px-4 text-center">
-                  <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2" onClick={() => { setEditTarget(task); setShowForm(true); }}><BsPencil /></button>
+                  <button
+                    className="bg-yellow-400 px-2 py-1 rounded text-white mr-2"
+                    onClick={() => {
+                      setEditTarget(task);
+                      setShowForm(true);
+                    }}
+                  >
+                    <BsPencil />
+                  </button>
                 </td>
                 <td className="py-2 px-4 text-center">
-                  <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}><BsFillTrash3Fill /></button>
+                  <button
+                    className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600"
+                    onClick={() => handleDelete(task.id)}
+                  >
+                    <BsFillTrash3Fill />
+                  </button>
                 </td>
               </tr>
             ))}
-            {/* + Row */}
-            <tr
-              className="cursor-pointer hover:bg-blue-100 text-blue-500 font-bold text-center"
-              onClick={() => { setEditTarget(null); setShowForm(true); }}
-            >
-              <td colSpan={6} className="py-4 text-2xl">+</td>
-            </tr>
           </tbody>
         </table>
       )}
