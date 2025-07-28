@@ -9,6 +9,16 @@ import { BsPencil } from "react-icons/bs";
 
 
 const TasksPage = () => {
+  function formatDateWithDay(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      weekday: 'long', // e.g., Friday
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    });
+  }
+
   const dispatch: AppDispatch = useDispatch();
   const { items, loading } = useSelector((state: RootState) => state.tasks);
   const auth = useSelector((state: RootState) => state.auth);
@@ -64,7 +74,9 @@ const TasksPage = () => {
           {items.map(task => (
             <li key={task.id} className="border rounded-lg p-4 shadow hover:shadow-lg transition">
               <h4 className="font-bold text-lg">{task.title}</h4>
-              <p className="text-sm text-gray-600">{task.date} - {task.time}</p>
+              <p className="text-sm text-gray-600">
+                {formatDateWithDay(task.date)} - {task.time}
+              </p>
               <p className="italic text-sm text-gray-700">
                 Priority:{' '}
                 <span className={
@@ -108,13 +120,13 @@ const TasksPage = () => {
             {items.map(task => (
               <tr key={task.id} className="border-b hover:bg-gray-50">
                 <td className="py-2 px-4 text-center">{task.title}</td>
-                <td className="py-2 px-4 text-center">{task.date}</td>
+                <td className="py-2 px-4 text-center">{formatDateWithDay(task.date)}</td>
                 <td className="py-2 px-4 text-center">{task.time}</td>
                 <td className="py-2 px-4 text-center capitalize">{task.priority}</td>
                 <td className="py-2 px-4 text-center">
                   <button className="bg-yellow-400 px-2 py-1 rounded text-white mr-2" onClick={() => { setEditTarget(task); setShowForm(true); }}><BsPencil /></button>
                 </td>
-                <td className="py-2 px-4">
+                <td className="py-2 px-4 text-center">
                   <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}><BsFillTrash3Fill /></button>
                 </td>
               </tr>
