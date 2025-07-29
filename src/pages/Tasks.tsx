@@ -39,6 +39,8 @@ const TasksPage = () => {
   const [activeTab, setActiveTab] = useState<'table' | 'card'>('card');
   const [expandedDescriptions, setExpandedDescriptions] = useState<Record<string, boolean>>({});
 
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+
   useEffect(() => {
     if (auth.user?.id) dispatch(fetchTasks(auth.user.id));
   }, [auth.user?.id, dispatch]);
@@ -61,9 +63,17 @@ const TasksPage = () => {
     setShowForm(false);
   };
 
-  const handleDelete = (id: string) => {
-    dispatch(deleteTask(id));
+  const confirmDelete = (id: string) => {
+    setConfirmDeleteId(id);
   };
+
+  const handleConfirmedDelete = () => {
+    if (confirmDeleteId) {
+      dispatch(deleteTask(confirmDeleteId));
+      setConfirmDeleteId(null);
+    }
+  };
+
 
   if (loading) return <p>Loading...</p>;
 
@@ -117,7 +127,7 @@ const TasksPage = () => {
                   </button>
                 </div>
                 <div className="float-right pt-2 w-35">
-                  <button onClick={() => handleDelete(task.id)} className="bg-red-500 py-2 w-full flex items-center justify-center rounded text-white hover:bg-red-600">
+                  <button onClick={() => confirmDelete(task.id)}className="bg-red-500 py-2 w-full flex items-center justify-center rounded text-white hover:bg-red-600">
                     <BsFillTrash3Fill />
                   </button>
                 </div>
@@ -176,9 +186,11 @@ const TasksPage = () => {
                     </button>
                   </td>
                   <td className="py-2 px-4 text-center">
-                    <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => handleDelete(task.id)}>
+                    <button className="bg-red-500 px-2 py-1 rounded text-white hover:bg-red-600" onClick={() => confirmDelete(task.id)}
+                    >
                       <BsFillTrash3Fill />
                     </button>
+
                   </td>
                 </tr>
               );
@@ -205,6 +217,28 @@ const TasksPage = () => {
           </div>
         </div>
       )}
+      {confirmDeleteId && (
+        <div className="fixed inset-0 bg-black/30 flex backdrop-blur-sm justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-sm text-center">
+            <p className="text-lg font-semibold mb-4">Are you sure you want to delete this task?</p>
+            <div className="flex justify-center gap-4">
+              <button
+                onClick={handleConfirmedDelete}
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              >
+                Yes
+              </button>
+              <button
+                onClick={() => setConfirmDeleteId(null)}
+                className="bg-gray-300 text-black px-4 py-2 rounded hover:bg-gray-400"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };

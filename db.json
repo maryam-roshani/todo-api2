@@ -38,16 +38,6 @@
       "description": "grocery",
       "date": "2025-07-26",
       "time": "17:51",
-      "priority": "low",
-      "status": "pending",
-      "userId": "e813"
-    },
-    {
-      "id": "5d3ff7d6-4654-4298-b780-516585b91b5f",
-      "title": "making dinner",
-      "description": "just some rice for our meal",
-      "date": "2025-07-25",
-      "time": "18:20",
       "priority": "high",
       "status": "pending",
       "userId": "e813"
