@@ -87,11 +87,15 @@ const TasksPage = () => {
               <li key={task.id} className={`border-2 rounded-lg p-4 shadow hover:shadow-lg transition relative ${getPriorityStyles(task.priority)}`}>
                 <h4 className="font-bold text-xl text-center mb-2">{task.title}</h4>
                 <div className="text-left text-sm space-y-1 mt-8">
-                  <p className="text-gray-600">Date: {formatDateWithDay(task.date)}</p>
-                  <p className="text-gray-600">Time: {task.time}</p>
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Date:</span> {formatDateWithDay(task.date)}
+                  </p>
+                  <p className="text-gray-600">
+                    <span className="font-semibold">Time:</span> {task.time}
+                  </p>
                   {task.description && (
                     <p className="text-gray-800">
-                      Description: {isExpanded ? task.description : descPreview}
+                    <span className="font-semibold">Description:</span> {isExpanded ? task.description : descPreview}
                       {task.description.length > 50 && (
                         <button onClick={() => toggleDescription(task.id)} className="text-blue-500 ml-1">
                           {isExpanded ? ' Show less' : '...'}
@@ -100,19 +104,20 @@ const TasksPage = () => {
                     </p>
                   )}
                   <p className="italic">
-                    Priority: <span className="capitalize font-semibold">{task.priority}</span>
+                    <span className="font-semibold">Priority:</span> <span className="capitalize font-semibold">{task.priority}</span>
                   </p>
+
                 </div>
                 <div className="float-left pt-2 w-35">
                   <button onClick={() => {
                     setEditTarget(task);
                     setShowForm(true);
-                  }} className="bg-yellow-400 py-2 w-full rounded text-white hover:bg-yellow-500">
+                  }} className="bg-yellow-400 py-2 w-full flex items-center justify-center rounded text-white hover:bg-yellow-500">
                     <BsPencil />
                   </button>
                 </div>
                 <div className="float-right pt-2 w-35">
-                  <button onClick={() => handleDelete(task.id)} className="bg-red-500 py-2 w-full rounded text-white hover:bg-red-600">
+                  <button onClick={() => handleDelete(task.id)} className="bg-red-500 py-2 w-full flex items-center justify-center rounded text-white hover:bg-red-600">
                     <BsFillTrash3Fill />
                   </button>
                 </div>

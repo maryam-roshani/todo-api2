@@ -10,26 +10,18 @@
 
 @font-face {
     font-family: 'Vazir';
-    src: url('./assets/fonts/Vazir.ttf') format('truetype');
-    src: url('./assets/fonts/Vazir.eot');
-    src: url('./assets/fonts/Vazir.woff2') format('woff2');
-    src: url('./assets/fonts/Vazir.woff') format('woff');
-    src: url('./assets/fonts/Vazir.eot?#iefix') format('embeded-opentype');
-    font-weight: normal;
+    src: url('./assets/fonts/Vazir.woff2') format('woff2'), url('./assets/fonts/Vazir.woff') format('woff'), url('./assets/fonts/Vazir.ttf') format('truetype');
+    font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Vazir-bold';
-    src: url('./assets/fonts/Vazir-bold.ttf') format('truetype');
-    src: url('./assets/fonts/Vazir-bold.eot');
-    src: url('./assets/fonts/Vazir-bold.woff2') format('woff2');
-    src: url('./assets/fonts/Vazir-bold.woff') format('woff');
-    src: url('./assets/fonts/Vazir-bold.eot?#iefix') format('embeded-opentype');
-    font-weight: bold;
+    font-family: 'Vazir';
+    src: url('./assets/fonts/Vazir-bold.woff2') format('woff2'), url('./assets/fonts/Vazir-bold.woff') format('woff'), url('./assets/fonts/Vazir-bold.ttf') format('truetype');
+    font-weight: 700;
     font-style: normal;
 }
 
 body {
-    font-family: 'Vazir', 'Vazir-bold', sans-serif;
+    font-family: 'Vazir', sans-serif;
 }
