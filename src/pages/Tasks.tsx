@@ -85,20 +85,6 @@ const TasksPage = () => {
             const descPreview = task.description?.slice(0, 50) ?? '';
             return (
               <li key={task.id} className={`border-2 rounded-lg p-4 shadow hover:shadow-lg transition relative ${getPriorityStyles(task.priority)}`}>
-                <div className="absolute top-2 left-2">
-                  <button onClick={() => {
-                    setEditTarget(task);
-                    setShowForm(true);
-                  }} className="bg-yellow-400 p-2 rounded text-white hover:bg-yellow-500">
-                    <BsPencil />
-                  </button>
-                </div>
-                <div className="absolute top-2 right-2">
-                  <button onClick={() => handleDelete(task.id)} className="bg-red-500 p-2 rounded text-white hover:bg-red-600">
-                    <BsFillTrash3Fill />
-                  </button>
-                </div>
-
                 <h4 className="font-bold text-xl text-center mb-2">{task.title}</h4>
                 <div className="text-left text-sm space-y-1 mt-8">
                   <p className="text-gray-600">Date: {formatDateWithDay(task.date)}</p>
@@ -116,6 +102,19 @@ const TasksPage = () => {
                   <p className="italic">
                     Priority: <span className="capitalize font-semibold">{task.priority}</span>
                   </p>
+                </div>
+                <div className="float-left pt-2 w-35">
+                  <button onClick={() => {
+                    setEditTarget(task);
+                    setShowForm(true);
+                  }} className="bg-yellow-400 py-2 w-full rounded text-white hover:bg-yellow-500">
+                    <BsPencil />
+                  </button>
+                </div>
+                <div className="float-right pt-2 w-35">
+                  <button onClick={() => handleDelete(task.id)} className="bg-red-500 py-2 w-full rounded text-white hover:bg-red-600">
+                    <BsFillTrash3Fill />
+                  </button>
                 </div>
               </li>
             );
@@ -179,6 +178,11 @@ const TasksPage = () => {
                 </tr>
               );
             })}
+            <tr onClick={() => { setEditTarget(null); setShowForm(true) }} className="cursor-pointer bg-gray-100 hover:bg-blue-100 text-center font-bold text-blue-500"
+            >
+              <td colSpan={7} className="py-4 text-3xl">+</td>
+            </tr>
+
           </tbody>
         </table>
       )}
