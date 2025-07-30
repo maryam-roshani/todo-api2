@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { useSelector } from 'react-redux';
-import type { RootState } from '../store';
+import { useSelector, useDispatch } from 'react-redux';
+import type { RootState, AppDispatch } from '../store';
 import type { Task } from '../types/Task';
+import { fetchTasks } from '../store/tasksSlice';
+
 
 
 type ValuePiece = Date | null;
@@ -12,6 +14,17 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const CalendarPage: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+  const dispatch: AppDispatch = useDispatch();
+  const auth = useSelector((state: RootState) => state.auth);
+
+  // Fetch tasks on calendar load
+  useEffect(() => {
+    if (auth.user?.id) {
+      dispatch(fetchTasks(auth.user.id));
+    }
+  }, [auth.user?.id, dispatch]);
+
 
   const handleDateChange = (value: Value) => {
     if (value instanceof Date) {
