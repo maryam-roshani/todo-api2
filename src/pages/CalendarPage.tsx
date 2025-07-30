@@ -67,18 +67,36 @@ const selectedDateStr = selectedDate ? formatDate(selectedDate) : '';
           {tasksForDate.length === 0 ? (
             <p className="text-gray-500">No tasks for this date.</p>
           ) : (
-            <ul className="space-y-2">
-              {tasksForDate.map(task => (
-                <li key={task.id} className="border rounded p-3 shadow">
-                  <h4 className="font-semibold">{task.title}</h4>
-                  <p className="text-sm">{task.time}</p>
-                  <p className="text-sm italic">Priority: {task.priority}</p>
-                  {task.description && (
-                    <p className="text-sm mt-1">{task.description}</p>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
+              {tasksForDate.map((task) => {
+                const priorityStyles = {
+                  high: 'border-red-500 bg-red-100',
+                  medium: 'border-yellow-500 bg-yellow-100',
+                  low: 'border-green-500 bg-green-100',
+                };
+
+                return (
+                  <div
+                    key={task.id}
+                    className={`w-full p-4 border-l-4 rounded shadow text-left hover:shadow-lg transition-shadow duration-300 ${priorityStyles[task.priority] || ''}`}
+                  >
+                    <h4 className="text-center font-bold text-lg text-gray-800 mb-2">{task.title}</h4>
+                    <p className="text-sm text-gray-700">
+                      <span className="font-semibold">Time:</span> {task.time}
+                    </p>
+                    {task.description && (
+                      <p className="text-sm text-gray-700 mt-1">
+                        <span className="font-semibold">Description:</span> {task.description}
+                      </p>
+                    )}
+                    <p className="text-sm text-gray-700 mt-1">
+                      <span className="font-semibold">Priority:</span> {task.priority}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
           )}
         </div>
       </div>
