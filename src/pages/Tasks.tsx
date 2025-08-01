@@ -93,6 +93,12 @@ const TasksPage = () => {
           {items.map(task => {
             const isExpanded = expandedDescriptions[task.id];
             const descPreview = task.description?.slice(0, 50) ?? '';
+            const now = new Date();
+            const taskDateTime = new Date(`${task.date}T${task.time}`);
+            let status = task.status ?? 'pending';
+            if (!task.status && taskDateTime <= now) {
+              status = 'pending';
+            }
             return (
               <li key={task.id} className={`border-2 rounded-lg p-4 shadow hover:shadow-lg transition relative ${getPriorityStyles(task.priority)}`}>
                 <h4 className="font-bold text-xl text-center mb-2">{task.title}</h4>
@@ -116,8 +122,23 @@ const TasksPage = () => {
                   <p className="italic">
                     <span className="font-semibold">Priority:</span> <span className="capitalize font-semibold">{task.priority}</span>
                   </p>
-
                 </div>
+                {status === 'pending' && (
+                  <div className="flex justify-between mt-3">
+                    <button
+                      onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
+                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                    >
+                      ✅ Done
+                    </button>
+                    <button
+                      onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      ❌ Cancel
+                    </button>
+                  </div>
+                )}
                 <div className="float-left pt-2 w-35">
                   <button onClick={() => {
                     setEditTarget(task);
@@ -131,6 +152,20 @@ const TasksPage = () => {
                     <BsFillTrash3Fill />
                   </button>
                 </div>
+                <p className="mt-2 text-sm">
+                  <span className="font-semibold">Status:</span>{' '}
+                  <span
+                    className={`font-bold capitalize ${
+                      status === 'done'
+                        ? 'text-green-600'
+                        : status === 'cancelled'
+                        ? 'text-red-600'
+                        : 'text-yellow-600'
+                    }`}
+                  >
+                    {status}
+                  </span>
+                </p>
               </li>
             );
           })}

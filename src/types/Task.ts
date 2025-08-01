@@ -5,6 +5,6 @@ export interface Task {
   description?: string;
   date: string; // YYYY-MM-DD
   time: string; // HH:mm
-  status: 'pending' | 'done';
+  status?: 'pending' | 'done' | 'cancelled'; // <-- NEW
   priority: 'low' | 'medium' | 'high';
 }
