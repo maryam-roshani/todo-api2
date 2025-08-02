@@ -138,25 +138,29 @@ const TasksPage = () => {
                           {status}
                         </span>
                       </p>
-
-                      {status === 'pending' && (
-                        <div className="flex justify-between mt-3">
-                          <button
-                            onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
-                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                          >
-                            ✅ Done
-                          </button>
-                          <button
-                            onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
-                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                          >
-                            ❌ Cancel
-                          </button>
-                        </div>
-                      )}
-                    </>
+                      </>
                   )}
+                </div>
+                {taskDateTime <= now && (
+                  <>
+                    {status === 'pending' && (
+                      <div className="flex justify-between mt-3">
+                        <button
+                          onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
+                          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                        >
+                          ✅ Done
+                        </button>
+                        <button
+                          onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
+                          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                        >
+                          ❌ Cancel
+                        </button>
+                      </div>
+                    )}
+                  </>
+                )}
                 <div className="float-left pt-2 w-35">
                   <button onClick={() => {
                     setEditTarget(task);

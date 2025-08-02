@@ -49,6 +49,16 @@
       "date": "2025-08-02",
       "time": "06:00",
       "priority": "high",
+      "status": "done",
+      "userId": "e813"
+    },
+    {
+      "id": "9540b7c9-3fe9-4f1c-b7f0-aa93eda3d036",
+      "title": "watching series",
+      "description": "this way up series s02e02",
+      "date": "2025-08-02",
+      "time": "19:00",
+      "priority": "low",
       "status": "pending",
       "userId": "e813"
     }
