@@ -122,23 +122,41 @@ const TasksPage = () => {
                   <p className="italic">
                     <span className="font-semibold">Priority:</span> <span className="capitalize font-semibold">{task.priority}</span>
                   </p>
-                </div>
-                {status === 'pending' && (
-                  <div className="flex justify-between mt-3">
-                    <button
-                      onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
-                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                    >
-                      ✅ Done
-                    </button>
-                    <button
-                      onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
-                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                    >
-                      ❌ Cancel
-                    </button>
-                  </div>
-                )}
+                  {taskDateTime <= now && (
+                    <>
+                      <p className="mt-2 text-sm">
+                        <span className="font-semibold">Status:</span>{' '}
+                        <span
+                          className={`font-bold capitalize ${
+                            status === 'done'
+                              ? 'text-green-600'
+                              : status === 'cancelled'
+                              ? 'text-red-600'
+                              : 'text-yellow-600'
+                          }`}
+                        >
+                          {status}
+                        </span>
+                      </p>
+
+                      {status === 'pending' && (
+                        <div className="flex justify-between mt-3">
+                          <button
+                            onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
+                            className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                          >
+                            ✅ Done
+                          </button>
+                          <button
+                            onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
+                            className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                          >
+                            ❌ Cancel
+                          </button>
+                        </div>
+                      )}
+                    </>
+                  )}
                 <div className="float-left pt-2 w-35">
                   <button onClick={() => {
                     setEditTarget(task);
@@ -152,20 +170,6 @@ const TasksPage = () => {
                     <BsFillTrash3Fill />
                   </button>
                 </div>
-                <p className="mt-2 text-sm">
-                  <span className="font-semibold">Status:</span>{' '}
-                  <span
-                    className={`font-bold capitalize ${
-                      status === 'done'
-                        ? 'text-green-600'
-                        : status === 'cancelled'
-                        ? 'text-red-600'
-                        : 'text-yellow-600'
-                    }`}
-                  >
-                    {status}
-                  </span>
-                </p>
               </li>
             );
           })}
