@@ -198,12 +198,17 @@ const TasksPage = () => {
               <th className="py-2 px-4">Time</th>
               <th className="py-2 px-4">Priority</th>
               <th className="py-2 px-4">Description</th>
+              <th className="py-2 px-4">Status</th>
               <th className="py-2 px-4">Edit</th>
               <th className="py-2 px-4">Delete</th>
             </tr>
           </thead>
           <tbody>
             {items.map(task => {
+              const now = new Date();
+              const taskDateTime = new Date(`${task.date}T${task.time}`);
+              const showStatus = taskDateTime <= now;
+              const status = task.status ?? (showStatus ? 'pending' : '');
               const isExpanded = expandedDescriptions[task.id];
               const descPreview = task.description?.slice(0, 50) ?? '';
               return (
@@ -218,6 +223,40 @@ const TasksPage = () => {
                       <button onClick={() => toggleDescription(task.id)} className="text-blue-500 ml-1">
                         {isExpanded ? ' Show less' : '...'}
                       </button>
+                    )}
+                  </td>
+                  <td className="py-2 px-4 text-center capitalize">
+                    {showStatus ? (
+                      status === 'pending' ? (
+                        <select
+                          value=""
+                         onChange={(e) => {
+                          const value = e.target.value;
+                          if (value === 'done' || value === 'cancelled') {
+                            dispatch(editTask({ ...task, status: value }));
+                          }
+                        }}
+                          className="border rounded px-2 py-1"
+                        >
+                          <option value="" disabled>Select</option>
+                          <option value="done">✅ Done</option>
+                          <option value="cancelled">❌ Cancel</option>
+                        </select>
+                      ) : (
+                        <span
+                          className={`font-bold ${
+                            status === 'done'
+                              ? 'text-green-600'
+                              : status === 'cancelled'
+                              ? 'text-red-600'
+                              : 'text-yellow-600'
+                          }`}
+                        >
+                          {status}
+                        </span>
+                      )
+                    ) : (
+                      <span className="text-gray-400 italic">—</span>
                     )}
                   </td>
                   <td className="py-2 px-4 text-center">
@@ -240,7 +279,7 @@ const TasksPage = () => {
             })}
             <tr onClick={() => { setEditTarget(null); setShowForm(true) }} className="cursor-pointer bg-gray-100 hover:bg-blue-100 text-center font-bold text-blue-500"
             >
-              <td colSpan={7} className="py-4 text-3xl">+</td>
+              <td colSpan={8} className="py-4 text-3xl">+</td>
             </tr>
 
           </tbody>
