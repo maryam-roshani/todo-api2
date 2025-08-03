@@ -12,6 +12,7 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
   const [description, setDescription] = useState(initial?.description || '');
   const [date, setDate] = useState(initial?.date || '');
   const [time, setTime] = useState(initial?.time || '');
+  const [duration, setDuration] = useState(initial?.duration || '');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(initial?.priority || 'low');
 
     useEffect(() => {
@@ -20,12 +21,14 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
       setDescription(initial.description || '');
       setDate(initial.date);
       setTime(initial.time);
+      setDuration(initial.duration);
       setPriority(initial.priority);
     } else {
       setTitle('');
       setDescription('');
       setDate('');
       setTime('');
+      setDuration('');
       setPriority('low');
     }
   }, [initial]);
@@ -39,6 +42,7 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
       description,
       date: formattedDate,
       time,
+      duration,
       priority,
       status: initial?.status || 'pending',
       userId,
@@ -69,6 +73,12 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
         type="time"
         value={time}
         onChange={(e) => setTime(e.target.value)}
+        className="border p-2 w-full"
+      />
+      <input
+        type="time"
+        value={duration}
+        onChange={(e) => setDuration(e.target.value)}
         className="border p-2 w-full"
       />
       <select

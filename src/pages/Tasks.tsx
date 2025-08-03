@@ -30,6 +30,19 @@ const TasksPage = () => {
     });
   }
 
+  const formatDuration = (duration: string) => {
+  const [hoursStr, minutesStr] = duration.split(':');
+  const hours = parseInt(hoursStr, 10);
+  const minutes = parseInt(minutesStr, 10);
+
+  const hourText = hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : '';
+  const minuteText = minutes > 0 ? `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}` : '';
+
+  if (!hourText && !minuteText) return '0 minutes';
+  return [hourText, minuteText].filter(Boolean).join(' and ');
+};
+
+
   const dispatch: AppDispatch = useDispatch();
   const { items, loading } = useSelector((state: RootState) => state.tasks);
   const auth = useSelector((state: RootState) => state.auth);
@@ -103,11 +116,14 @@ const TasksPage = () => {
               <li key={task.id} className={`border-2 rounded-lg p-4 shadow hover:shadow-lg transition relative ${getPriorityStyles(task.priority)}`}>
                 <h4 className="font-bold text-xl text-center mb-2">{task.title}</h4>
                 <div className="text-left text-sm space-y-1 mt-8">
-                  <p className="text-gray-600">
+                  <p className="text-gray-800">
                     <span className="font-semibold">Date:</span> {formatDateWithDay(task.date)}
                   </p>
-                  <p className="text-gray-600">
+                  <p className="text-gray-800">
                     <span className="font-semibold">Time:</span> {task.time}
+                  </p>
+                  <p className="text-gray-800">
+                    <span className="font-semibold">Duration:</span> {formatDuration(task.duration)}
                   </p>
                   {task.description && (
                     <p className="text-gray-800">
@@ -196,6 +212,7 @@ const TasksPage = () => {
               <th className="py-2 px-4">Title</th>
               <th className="py-2 px-4">Date</th>
               <th className="py-2 px-4">Time</th>
+              <th className="py-2 px-4">Duration</th>
               <th className="py-2 px-4">Priority</th>
               <th className="py-2 px-4">Description</th>
               <th className="py-2 px-4">Status</th>
@@ -216,6 +233,7 @@ const TasksPage = () => {
                   <td className="py-2 px-4 text-center font-semibold">{task.title}</td>
                   <td className="py-2 px-4 text-center">{formatDateWithDay(task.date)}</td>
                   <td className="py-2 px-4 text-center">{task.time}</td>
+                  <td className="py-2 px-4 text-center">{formatDuration(task.duration)}</td>
                   <td className="py-2 px-4 text-center capitalize">{task.priority}</td>
                   <td className="py-2 px-4 text-center">
                     {isExpanded ? task.description : descPreview}
