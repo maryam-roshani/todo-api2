@@ -75,12 +75,38 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
         onChange={(e) => setTime(e.target.value)}
         className="border p-2 w-full"
       />
-      <input
-        type="time"
-        value={duration}
-        onChange={(e) => setDuration(e.target.value)}
-        className="border p-2 w-full"
-      />
+      <label className="block">
+        Duration:
+        <div className="flex gap-2 mt-1">
+            <input
+            type="number"
+            value={Number(duration.split(':')[0])}
+            min={0}
+            max={23}
+            onChange={(e) => {
+                const hours = e.target.value.padStart(2, '0');
+                const minutes = duration.split(':')[1] || '00';
+                setDuration(`${hours}:${minutes}`);
+            }}
+            className="border p-2 w-20"
+            placeholder="HH"
+            />
+            <span>:</span>
+            <input
+            type="number"
+            value={Number(duration.split(':')[1] || 0)}
+            min={0}
+            max={59}
+            onChange={(e) => {
+                const minutes = e.target.value.padStart(2, '0');
+                const hours = duration.split(':')[0] || '00';
+                setDuration(`${hours}:${minutes}`);
+            }}
+            className="border p-2 w-20"
+            placeholder="MM"
+            />
+        </div>
+      </label>
       <select
         value={priority}
         onChange={(e) => setPriority(e.target.value as 'low' | 'medium' | 'high')}

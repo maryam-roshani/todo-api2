@@ -19,6 +19,7 @@
       "description": "Milk, Bread, Eggs",
       "date": "2024-06-18",
       "time": "17:00",
+      "duration": "00:00",
       "status": "pending",
       "priority": "medium"
     },
@@ -29,6 +30,7 @@
       "description": "Advanced To-Do App",
       "date": "2024-06-20",
       "time": "09:00",
+      "duration": "00:00",
       "status": "pending",
       "priority": "high"
     },
@@ -38,7 +40,7 @@
       "description": "grocery",
       "date": "2025-07-26",
       "time": "17:51",
-      "duration": "15:12",
+      "duration": "15:01",
       "priority": "high",
       "status": "done",
       "userId": "e813"
@@ -49,6 +51,7 @@
       "description": "making bites of bread and cheese and walnuts",
       "date": "2025-08-02",
       "time": "06:00",
+      "duration": "00:00",
       "priority": "high",
       "status": "done",
       "userId": "e813"
@@ -59,6 +62,7 @@
       "description": "this way up series s02e02",
       "date": "2025-08-02",
       "time": "19:00",
+      "duration": "00:00",
       "priority": "low",
       "status": "cancelled",
       "userId": "e813"
@@ -69,19 +73,9 @@
       "description": "",
       "date": "2025-08-02",
       "time": "19:57",
+      "duration": "00:00",
       "priority": "high",
       "status": "done",
-      "userId": "e813"
-    },
-    {
-      "id": "5b42c28e-92d7-4a7c-8645-f84eae57c193",
-      "title": "khgkjhk",
-      "description": "kgkljh;jh;l",
-      "date": "2025-08-04",
-      "time": "05:20",
-      "duration": "01:20",
-      "priority": "low",
-      "status": "cancelled",
       "userId": "e813"
     }
   ]
