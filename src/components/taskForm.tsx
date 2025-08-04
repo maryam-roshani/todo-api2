@@ -12,7 +12,7 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
   const [description, setDescription] = useState(initial?.description || '');
   const [date, setDate] = useState(initial?.date || '');
   const [time, setTime] = useState(initial?.time || '');
-  const [duration, setDuration] = useState(initial?.duration || '');
+  const [duration, setDuration] = useState(initial?.duration || '00:00');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(initial?.priority || 'low');
 
     useEffect(() => {

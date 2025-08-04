@@ -30,17 +30,20 @@ const TasksPage = () => {
     });
   }
 
-  const formatDuration = (duration: string) => {
-  const [hoursStr, minutesStr] = duration.split(':');
-  const hours = parseInt(hoursStr, 10);
-  const minutes = parseInt(minutesStr, 10);
+  const formatDuration = (duration?: string) => {
+    if (!duration || !duration.includes(':')) return '—'; // ✅ جلوگیری از split روی undefined
 
-  const hourText = hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : '';
-  const minuteText = minutes > 0 ? `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}` : '';
+    const [hoursStr, minutesStr] = duration.split(':');
+    const hours = parseInt(hoursStr, 10);
+    const minutes = parseInt(minutesStr, 10);
 
-  if (!hourText && !minuteText) return '0 minutes';
-  return [hourText, minuteText].filter(Boolean).join(' and ');
-};
+    const hourText = hours > 0 ? `${hours} ${hours === 1 ? 'hour' : 'hours'}` : '';
+    const minuteText = minutes > 0 ? `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}` : '';
+
+    if (!hourText && !minuteText) return '0 minutes';
+    return [hourText, minuteText].filter(Boolean).join(' and ');
+  };
+
 
 
   const dispatch: AppDispatch = useDispatch();
