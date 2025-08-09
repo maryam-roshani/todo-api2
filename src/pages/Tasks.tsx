@@ -111,9 +111,9 @@ const TasksPage = () => {
             const descPreview = task.description?.slice(0, 50) ?? '';
             const now = new Date();
             const taskDateTime = new Date(`${task.date}T${task.time}`);
-            let status = task.status ?? 'pending';
+            let status = task.status ?? 'in progress';
             if (!task.status && taskDateTime <= now) {
-              status = 'pending';
+              status = 'in progress';
             }
             return (
               <li key={task.id} className={`border-2 rounded-lg p-4 shadow hover:shadow-lg transition relative ${getPriorityStyles(task.priority)}`}>
@@ -162,7 +162,7 @@ const TasksPage = () => {
                 </div>
                 {taskDateTime <= now && (
                   <>
-                    {status === 'pending' && (
+                    {status === 'in progress' && (
                       <div className="flex justify-between mt-3">
                         <button
                           onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
@@ -228,7 +228,7 @@ const TasksPage = () => {
               const now = new Date();
               const taskDateTime = new Date(`${task.date}T${task.time}`);
               const showStatus = taskDateTime <= now;
-              const status = task.status ?? (showStatus ? 'pending' : '');
+              const status = task.status ?? (showStatus ? 'in progress' : '');
               const isExpanded = expandedDescriptions[task.id];
               const descPreview = task.description?.slice(0, 50) ?? '';
               return (
@@ -248,7 +248,7 @@ const TasksPage = () => {
                   </td>
                   <td className="py-2 px-4 text-center capitalize">
                     {showStatus ? (
-                      status === 'pending' ? (
+                      status === 'in progress' ? (
                         <select
                           value=""
                          onChange={(e) => {

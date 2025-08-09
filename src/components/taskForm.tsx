@@ -14,6 +14,10 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
   const [time, setTime] = useState(initial?.time || '');
   const [duration, setDuration] = useState(initial?.duration || '00:00');
   const [priority, setPriority] = useState<'low' | 'medium' | 'high'>(initial?.priority || 'low');
+  const [status, setStatus] = useState<'in progress' | 'cancelled' | 'done' | undefined>(
+  initial?.status || undefined
+);
+
 
     useEffect(() => {
     if (initial) {
@@ -23,6 +27,7 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
       setTime(initial.time);
       setDuration(initial.duration);
       setPriority(initial.priority);
+      setStatus(initial.status);
     } else {
       setTitle('');
       setDescription('');
@@ -30,6 +35,7 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
       setTime('');
       setDuration('');
       setPriority('low');
+      setStatus(undefined);
     }
   }, [initial]);
 
@@ -44,7 +50,7 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
       time,
       duration,
       priority,
-      status: initial?.status || 'pending',
+      status,
       userId,
     });
   };
@@ -116,6 +122,16 @@ const TaskForm = ({ initial, onSubmit, userId }: Props) => {
         <option value="medium">Medium</option>
         <option value="high">High</option>
       </select>
+      <select
+        value={status}
+        onChange={(e) => setStatus(e.target.value as 'in progress' | 'done' | 'cancelled')}
+        className="border p-2 w-full"
+      >
+        <option value="in progress">In Progress</option>
+        <option value="done">Done</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+
       <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
         {initial ? 'Update Task' : 'Add Task'}
       </button>
