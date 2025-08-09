@@ -141,7 +141,8 @@ const TasksPage = () => {
                   <p className="italic">
                     <span className="font-semibold">Priority:</span> <span className="capitalize font-semibold">{task.priority}</span>
                   </p>
-                  {taskDateTime <= now && (
+                  <div className="flex flex-row-reverse justify-between">
+                    {taskDateTime <= now && (
                     <>
                       <p className="mt-2 text-sm">
                         <span className="font-semibold">Status:</span>{' '}
@@ -158,28 +159,29 @@ const TasksPage = () => {
                         </span>
                       </p>
                       </>
-                  )}
-                </div>
-                {taskDateTime <= now && (
-                  <>
-                    {status === 'in progress' && (
-                      <div className="flex justify-between mt-3">
-                        <button
-                          onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
-                          className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
-                        >
-                          ✅ Done
-                        </button>
-                        <button
-                          onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
-                          className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
-                        >
-                          ❌ Cancel
-                        </button>
-                      </div>
                     )}
-                  </>
-                )}
+                    {taskDateTime <= now && (
+                      <>
+                        {status === 'in progress' && (
+                          <div className="flex text-xs justify-between mt-2 gap-5">
+                            <button
+                              onClick={() => dispatch(editTask({ ...task, status: 'done' }))}
+                              className="bg-green-500 text-white px-1 py-1 rounded hover:bg-green-600"
+                            >
+                              ✅ Done
+                            </button>
+                            <button
+                              onClick={() => dispatch(editTask({ ...task, status: 'cancelled' }))}
+                              className="bg-red-500 text-white px-1 py-1 rounded hover:bg-red-600"
+                            >
+                              ❌ Cancel
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </div>
+                </div>
                 <div className="float-left pt-2 w-35">
                   <button onClick={() => {
                     setEditTarget(task);
