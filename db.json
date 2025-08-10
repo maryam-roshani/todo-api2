@@ -40,9 +40,9 @@
       "description": "grocery",
       "date": "2025-07-26",
       "time": "17:51",
-      "duration": "15:01",
+      "duration": "01:18",
       "priority": "high",
-      "status": "in progress",
+      "status": "done",
       "userId": "e813"
     },
     {
@@ -53,7 +53,7 @@
       "time": "06:00",
       "duration": "00:00",
       "priority": "high",
-      "status": "done",
+      "status": "in progress",
       "userId": "e813"
     },
     {

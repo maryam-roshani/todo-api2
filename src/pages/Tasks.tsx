@@ -31,7 +31,7 @@ const TasksPage = () => {
   }
 
   const formatDuration = (duration?: string) => {
-    if (!duration || !duration.includes(':')) return '—'; // ✅ جلوگیری از split روی undefined
+    if (!duration || !duration.includes(':')) return '—'; 
 
     const [hoursStr, minutesStr] = duration.split(':');
     const hours = parseInt(hoursStr, 10);
@@ -141,7 +141,7 @@ const TasksPage = () => {
                   <p className="italic">
                     <span className="font-semibold">Priority:</span> <span className="capitalize font-semibold">{task.priority}</span>
                   </p>
-                  <div className="flex flex-row-reverse justify-between">
+                  <div className="flex flex-row justify-between">
                     {taskDateTime <= now && (
                     <>
                       <p className="mt-2 text-sm">
